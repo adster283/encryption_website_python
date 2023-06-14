@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if page_to_load == "home" %}
+
+<div class="text-center">
+    <h1>Steganography</h1>
+    </br>
+    <p>
+        Please select one of the options below, either to hide a message or to reveal a message.
+    </p>
+    </br>
+    <form method="POST" action="{{ url_for('views.stego') }}">
+        <button type="submit" class="btn btn-primary" name="hide">Hide a message</button>
+        <button type="submit" class="btn btn-primary" name="reveal">Reveal a message</button>
+    </form>
+
+    </br>
+    <h1>About this tool:</h1>
+    </br>
+    <p>Steganography is the art of hiding text or even files in images. Spies have been using this technique of
+        cryptography for centuries to hide their messages in plain sight. The image while containing all this extra
+        information looks no different to the naked eye when compared with the original image. </p>
+    </br>
+    <p>This tool is super easy to use, just upload an image along with the text you like to hide within it. You can
+        likewise upload an image with a hidden message and the site will return to you the message it is hiding. Please
+        note that the implementation that this site is using is easy to detect and decrypt by anyone who has the image,
+        so I recommend only using it for educational purposes or sending a fun message to a mate.</p>
+    </br>
+
+</div>
+
+
+{% endif %}
+
+{% if page_to_load == "hide" %}
+<div class="text-center">
+    <h1>Upload An Image And Type Some Text To Hide</h1>
+</div>
+
+<div class="text-center">
+    <form method="POST" action="{{ url_for('views.stego') }}" enctype="multipart/form-data">
+
+        </br>
+
+        <input type="text" class="form-control" placeholder="The text that you want to hide" name="text_to_hide"
+            aria-describedby="basic-addon1">
+
+
+        <input type="file" class="form-control" name="file_to_hide" id="file_to_hide" />
+
+        </br>
+
+        <button type="submit" class="btn btn-primary" name="pleasehide">Hide My Message</button>
+
+    </form>
+
+    </br>
+
+</div>
+{% endif %}
+
+{% if page_to_load == "reveal" %}
+<div class="text-center">
+    <h1>Upload An Image To Reveal Hidden Text</h1>
+</div>
+
+<div class="text-center">
+    <form method="POST" action="{{ url_for('views.stego') }}" enctype="multipart/form-data">
+
+        </br>
+
+        <input type="file" class="form-control" name="file_to_reveal" id="file_to_reveal" />
+
+        </br>
+
+        <button type="submit" class="btn btn-primary" name="pleasereveal">Reveal The Message</button>
+
+    </form>
+
+    </br>
+
+    <input type="text" class="form-control" placeholder="{{ secret }}" aria-label="Username"
+        aria-describedby="basic-addon1" readonly>
+
+
+</div>
+{% endif %}
+
+{% endblock %}

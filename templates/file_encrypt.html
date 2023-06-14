@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if page_to_load == "home" %}
+
+<div class="text-center">
+
+
+
+    <h1>Encrypt and Decrypt Files</h1>
+
+    </br>
+    <p>Please select one of the options below, either to encrypt a file or decrypt a file.</p>
+
+    </br>
+
+    <form method="POST" action="{{ url_for('views.encryptfile') }}">
+        <button type="submit" class="btn btn-primary" name="encrypt">Encrypt A File</button>
+        <button type="submit" class="btn btn-primary" name="decrypt">Decrypt A File</button>
+    </form>
+
+    </br>
+    <h1>About this tool:</h1>
+    </br>
+    <p>Encryption is a fascinating thing to learn about. You can know everything there is to know about the algorithms
+        used that have unlimited computing power but if you don’t know the password that unlocks the given encryption.
+        This is the foundation of modern day computing and without it anyone would be able to view everything you do
+        online and everything you have stored on all your devices. It is the one security measure that protects us from
+        the people that wish to do us harm.</p>
+    </br>
+    <p>To see the encryption in action using the above tool. If you'd like to encrypt a file you can click the encrypt
+        button and supply a file and password that you like to lock the file with. The site will then return an
+        encrypted version of the file which can only be viewed by giving the encrypted version of the file along with
+        the same password back to this site. Because of how secure the encryption algorithm is, if you were to forget
+        the password you'd never be able to see the contents of that file again.</p>
+    </br>
+    </br>
+</div>
+
+{% endif %}
+
+{% if page_to_load == "encrypt" %}
+
+<div class="text-center">
+    <h1>Upload A File To Encrypt With Your Chosen Password</h1>
+</div>
+
+<div class="text-center">
+    <form method="POST" action="{{ url_for('views.encryptfile') }}" enctype="multipart/form-data">
+
+        </br>
+
+        <input type="text" class="form-control" placeholder="The password that will be used to encrypt the given file"
+            name="password">
+
+
+        <input type="file" class="form-control" name="file_to_encrypt" id="file_to_encrypt" />
+
+        </br>
+
+        <button type="submit" class="btn btn-primary" name="pleaseencrypt">Encrypt My File</button>
+
+    </form>
+
+    </br>
+
+
+
+</div>
+
+{% endif %}
+
+{% if page_to_load == "decrypt" %}
+
+<div class="text-center">
+    <h1>Upload A File To Decrypt With Your Chosen Password</h1>
+</div>
+
+<div class="text-center">
+    <form method="POST" action="{{ url_for('views.encryptfile') }}" enctype="multipart/form-data">
+
+        </br>
+
+        <input type="text" class="form-control" placeholder="The password that will be used to decrypt the given file"
+            name="password" aria-describedby="basic-addon1">
+
+
+        <input type="file" class="form-control" name="file_to_encrypt" id="file_to_encrypt" />
+
+        </br>
+
+        <button type="submit" class="btn btn-primary" name="pleasedecrypt">Decrypt My File</button>
+
+    </form>
+
+    </br>
+
+
+
+</div>
+
+{% endif %}
+
+{% endblock %}

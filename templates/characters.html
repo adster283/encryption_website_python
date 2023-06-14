@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center">
+    <h1>Check For Weird Characters In Link</h1>
+</div>
+
+
+<div class="text-center">
+    <form onsubmit="return validateForm()">
+
+        </br>
+
+        <input type="text" class="form-control" placeholder="Please paste your link here" name="link_input">
+
+        </br>
+
+        <button type="submit" class="btn btn-primary">Check</button>
+
+    </form>
+
+    </br>
+    </br>
+
+    <h1>About this tool:</h1>
+
+    <p>Fishing attacks are attacks where the hackers attempt to get individuals to click a link that looks like a
+        service they might use. They then prompt the individual to login to what seems a legitimate sign in page,
+        although this is just a fake page and stores your username and password so the hackers can later use the
+        credentials to login as that individual. The first and simplest technique people are taught to spot these links
+        is to check for misspellings and similar words that might look correct at first glance. This is very effective,
+        however attackers started using similar characters that look identical to the correct characters to the naked
+        eye and even a trained individual would fall for these links.</p>
+
+    </br>
+
+    <p>That's where this tool can help. This tool can spot invisible and similar characters that might trick you into
+        thinking a link is legitimate. Lets try an example, look at the following links and try to spot the similar or
+        invisible characters. Copy and paste the links into the tool and see how many links fooled you.</p>
+
+    </br>
+
+    <p>https://www.lіnk‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‎‌edіn.com</p>
+    <p>https://www.gооgle.com</p>
+    <p>https://ya​hoo.com</p>
+
+    </br>
+
+    <p>As we can see not one of the above links are the legitimate link while looking exactly like the legitimate links.
+    </p>
+
+</div>
+
+<script>
+    function validateForm() {
+        var passwordInput = document.querySelector('input[name="link_input"]');
+
+        const similarCharacters = [];
+        for (var i = 0; i < passwordInput.value.length; i++) {
+            if (passwordInput.value.charCodeAt(i) > 127) {
+
+                similarCharacters.push(passwordInput.value[i]);
+            }
+        }
+        if (similarCharacters.length > 0) {
+            alert("The text contains none ASCII characters! Please be aware! The followign characters are of interest: " + similarCharacters + " Please read below for more information.");
+            return false;
+        }
+        alert("The link only contains ASCII characters and not known similar characters. Please read below for more information.")
+        return true;
+    }
+</script>
+
+{% endblock %}

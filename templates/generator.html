@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<div class="text-center">
+    <h1>Password Generator</h1>
+</div>
+</br>
+
+<div class="container">
+    <div class="col-md-6 offset-md-3 text-center">
+        <form method="POST" action="{{ url_for('views.generator') }}">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Password Length
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(8)">8</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(16)">16</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(32)">32</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(64)">62</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(128)">128</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="selectOption(256)">256</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="selected_option" id="selected_option">
+            </br>
+            <div class="text-left">
+                <div class="form-check form-switch">
+                    {% if checked_num %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_num"
+                        id="flexSwitchCheckChecked" checked>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_num"
+                        id="flexSwitchCheckDefault">
+                    {% endif %}
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Inlcude Number (e.g. 1234)</label>
+                </div>
+                <div class="form-check form-switch">
+                    {% if checked_sym %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_sym"
+                        id="flexSwitchCheckChecked" checked>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_sym"
+                        id="flexSwitchCheckDefault">
+                    {% endif %}
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Include Symbols (e.g. %&$#)</label>
+                </div>
+                <div class="form-check form-switch">
+                    {% if checked_up %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_up"
+                        id="flexSwitchCheckChecked" checked>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_up"
+                        id="flexSwitchCheckDefault">
+                    {% endif %}
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Inlcude Upper Case Characters (e.g.
+                        ABCDEF)</label>
+                </div>
+                <div class="form-check form-switch">
+                    {% if checked_low %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_low"
+                        id="flexSwitchCheckChecked" checked>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_low"
+                        id="flexSwitchCheckDefault">
+                    {% endif %}
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Inlcude Lower Case Characters (e.g.
+                        abcdef)</label>
+                </div>
+                <div class="form-check form-switch">
+                    {% if checked_amb %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_amb"
+                        id="flexSwitchCheckChecked" checked>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" role="switch" name="checked_amb"
+                        id="flexSwitchCheckDefault">
+                    {% endif %}
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Exclude Ambiguos Characters (e.g.
+                        {}[]`~)</label>
+                </div>
+            </div>
+            </br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        </br>
+
+    </div>
+    <div class="container text-center">
+        <h5 style="color:maroon" id="password_text">{{ password }}</h5>
+        <button class="btn btn-primary" data-clipboard-target="#password_text">Copy</button>
+    </div>
+</div>
+
+</br>
+
+<div class="text-center">
+    <h1>About this tool:</h1>
+    </br>
+    <p>The most important thing we as individuals can do to improve our security online is to create strong uncrackable
+        passwords. It doesn't matter how secure a given website is if our passwords are weak as attackers have a much
+        easier time guessing passwords than they do getting around a website's login security.</p>
+    </br>
+    <p>We live in an age where computers are so powerful that they can try every possible combination of 8 character
+        long passwords in under an hour. Even less if the password is a common password that has appeared in a data
+        breach at some point. This is a scary fact given that most accounts only require a password that is 8 characters
+        long. Even worse when you realize most people reuse their passwords and have had at least one of their accounts
+        logins leaked in a breach before.</p>
+    </br>
+    <p>The solution to this is to use long randomly generated passwords that would take even the most computers millions
+        of years to guess. We do this by using password generators like the one seen above to generate the passwords
+        along with password managers to store and autofill our passwords when we login to our accounts.Along with these
+        tools we need to ensure that we never reuse any of our passwords.</p>
+    </br>
+    </br>
+</div>
+
+
+<script>
+    document.getElementById("selected_option").value = "{{ selected_option }}";
+    var clipboard = new ClipboardJS('.btn');
+    clipboard.on('success', function (e) {
+        alert('Password copied to clipboard.', e.text);
+    });
+    clipboard.on('error', function (e) {
+        alert('Copy failed.', e.action);
+    });
+    function selectOption(option) {
+        document.getElementById("selected_option").value = option;
+    }
+</script>
+
+{% endblock %}

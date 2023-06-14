@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center">
+  <h1>Create A Cipher Using The Ceasar Cipher</h1>
+</div>
+
+<div class="text-center">
+  <form method="POST" action="{{ url_for('views.ceasar') }}">
+
+    </br>
+
+    <div class="form-group row">
+      <label for="numberInput" class="col-sm-3 col-form-label">Enter the desired shift:</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" id="numberInput" name="shift_input" min="-26" max="26"
+          value="{{shift_value}}">
+      </div>
+    </div>
+
+    <input type="text" class="form-control" placeholder="{{default_text}}" name="text_input" aria-label="Passord"
+      aria-describedby="basic-addon1">
+
+    </br>
+
+    <button type="submit" class="btn btn-primary" name="shift_btn">Encrypt</button>
+
+  </form>
+
+  </br>
+
+  <input type="text" class="form-control" placeholder="{{ hashed }}" aria-label="Username"
+    aria-describedby="basic-addon1" readonly>
+
+  </br>
+
+  <h1>About this tool:</h1>
+  </br>
+
+  <p>Caesar cipher is one of the simplest and best known encryption techniques ever developed. The idea behind the
+    cipher is to decide a shift value, this shift value is used to shift a given letter shift value letters through the
+    alphabet. Essentially if we chose a shift value of 3 and our given letter was “a” it would become “d” which is 3
+    letters to the right. This shift was with negative shift values as well and a shift of -3 in the previous example
+    would return you back to “a” revealing the original text.</p>
+
+  </br>
+  <p>This simplicity made the encryptions easy to do by hand in the days before we had computers. Although this
+    simplicity also made it very easy to decrypt without knowing the required shift as people quickly realized they
+    could analyze the frequency distribution of the letter in the cipher. This cipher can be broken in a matter of
+    minutes just using pen and paper. Please note that as stated above this is not a secure encryption technique anymore
+    and just used to educate about encryption. Feel free to send your friends a message using this cipher that they will
+    have to decrypt.</p>
+  </br>
+  </br>
+
+</div>
+
+{% endblock %}
